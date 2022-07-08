@@ -1,13 +1,4 @@
-import React, { Component, useEffect, useState, useRef } from 'react'
-
-import { withStyles } from '@material-ui/core/styles'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
-import Paper from '@material-ui/core/Paper'
+import React, { Component } from 'react'
 
 import { Button, TextField } from '@material-ui/core'
 import { Link } from 'react-router-dom'
@@ -18,14 +9,12 @@ class StudentDetail extends Component {
 	}
 
 	render() {
-		const { state } =  this.props.location
-		console.log(state)
 		return (
 			<>
 				<div className="" align="center" style={{ marginTop: "100px"}}>
-					<TextField variant="outlined" label="First Name">{state.fname}</TextField>
+					<TextField variant="outlined" label="First Name"></TextField>
 					<div style={{ marginTop: "50px", marginBottom: "50px"}}>
-						<TextField variant="outlined" label="Last Name">{state.lname}</TextField>
+						<TextField variant="outlined" label="Last Name"></TextField>
 					</div>
 					<div>
 						<Link to="/StudentList">

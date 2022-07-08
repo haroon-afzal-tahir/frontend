@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { withStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
@@ -9,7 +9,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 
-import { Button, TextField } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 
 function BookList() {
@@ -72,10 +72,8 @@ function BookList() {
 									<StyledTableCell align="center">{new Date(item.dateborrowed).toLocaleDateString("en-US")}</StyledTableCell>
 									<StyledTableCell align="center">{new Date(item.datereturn).toLocaleDateString("en-US")}</StyledTableCell>
 									<StyledTableCell align="center">
-										<Link to="/BookDetail">
-											<Button variant="outlined" onClick={() => {
-												
-											}}>
+										<Link to={{pathname: '/BookDetail', state: { b_id: item.b_id, bname: item.bname, author: item.author, name: item.fname + ' ' + item.lname, dateborrowed: new Date(item.dateborrowed).toLocaleDateString("en-US"), datereturn: new Date(item.datereturn).toLocaleDateString("en-US")}}}>
+											<Button variant="outlined">
 												Edit
 											</Button>
 										</Link>
