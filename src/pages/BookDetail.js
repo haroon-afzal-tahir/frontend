@@ -1,84 +1,37 @@
 import React, { Component, useEffect, useState, useRef } from 'react'
 
-import { withStyles } from '@material-ui/core/styles'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
-import Paper from '@material-ui/core/Paper'
+import { Button, TextField } from '@material-ui/core'
+import { Link } from 'react-router-dom'
 
-class BookDetail extends Component {
-	
-	constructor(props) {
-		super(props)
-		this.state = { apiResponse: ""}
-	}
+function BookDetail() {
+	return (
+		<>
+			<div className="" align="center" style={{ marginTop: "100px"}}>
+				<TextField disabled variant="outlined" label="Book Name"></TextField>
+				<TextField disabled variant="outlined" label="Author" style={{ marginLeft: "30px"}}></TextField>
+				<div style={{ marginTop: "50px", marginBottom: "50px"}}>
+					<TextField variant="outlined" label="Borrowed By"></TextField>
+					<TextField variant="outlined" label="Date Borrowed" style={{ marginLeft: "30px"}}></TextField>
+				</div>
+				<div style={{ marginTop: "50px", marginBottom: "50px"}}>
+				</div>
+				<div style={{ marginTop: "50px", marginBottom: "50px"}}>
+				</div>
+				<div style={{ marginTop: "50px", marginBottom: "50px"}}>
+					<TextField variant="outlined" label="Returned?"></TextField>
+				</div>
 
-
-	componentDidMount() {
-		this.callBackendAPI()
-	}
-
-	callBackendAPI() {
-		fetch("/users")
-			.then(res => res.json())
-			.then(res => this.setState({apiResponse: res}))
-			.catch(err => err)
-	};
-
-	render() {
-		const StyledTableCell = withStyles((theme) => ({
-			head: {
-				backgroundColor: theme.palette.common.black,
-				color: theme.palette.common.white,
-			},
-			body: {
-				fontSize: 14
-			},
-		})) (TableCell);
-
-		const StyledTableRow = withStyles((theme) => ({
-			root: {
-				'&:nth-of-type(odd)': {
-					backgroundColor: theme.palette.action.hover,
-				},
-			},
-		})) (TableRow);
-
-		const lists = this.state.apiResponse.map((item) => 
-			<StyledTableRow key={item.b_id}>
-				<StyledTableCell component="th" scope="row" align="center">{item.bname}</StyledTableCell>
-				<StyledTableCell align="center">{item.author}</StyledTableCell>
-			</StyledTableRow>
-		);
-
-		return (
-			// <p>{this.state.apiResponse}</p>
-			// <div className="App">
-			// 	<header className="App-header">
-					
-			// 	</header>
-			// </div>
-			<>
-			<div>
-				<input type="text" value="Hello World!"/>
-				<TableContainer component={Paper}>
-					<Table aria-label="Customized Table">
-						<TableHead>
-							<TableRow>
-								<TableCell align="center">First Name</TableCell>
-								<TableCell align="center">Last Name</TableCell>
-							</TableRow>
-						</TableHead>
-						<TableBody>{lists}</TableBody>
-					</Table>
-				</TableContainer>
+				<div>
+					<Link to="/BookList">
+						<Button variant="outline" style={{ marginRight: "50px"}}>Cancel</Button>
+					</Link>
+					<Link to="/BookList">
+						<Button variant="contained">Update</Button>
+					</Link>
+				</div>
 			</div>
-			</>
-		);
-	}
+		</>
+	)
 }
 
 export default BookDetail;

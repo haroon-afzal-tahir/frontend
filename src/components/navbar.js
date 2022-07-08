@@ -16,20 +16,12 @@ import { Link as RouterLink } from "react-router-dom"
 const headersData = [
 	{
 		label: "Students List",
-		href: "../pages/StudentList",
+		href: "/StudentList",
 	},
 	{
 		label: "Books List",
-		href: "../pages/BookList",
-	},
-	{
-		label: "Student Detail",
-		href: "../pages/StudentDetail",
-	},
-	{
-		label: "Book Detail",
-		href: "../pages/BookDetail",
-	},
+		href: "/BookList",
+	}
 ];
 
 const useStyles = makeStyles(() => ({

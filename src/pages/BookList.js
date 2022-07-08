@@ -9,76 +9,85 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 
-class BookList extends Component {
-	
-	constructor(props) {
-		super(props)
-		this.state = { apiResponse: ""}
-	}
+import { Button, TextField } from '@material-ui/core'
+import { Link } from 'react-router-dom'
 
+function BookList() {
+	const [data, setData] = useState([{}])
 
-	componentDidMount() {
-		this.callBackendAPI()
-	}
+	useEffect(() => {
+		async function getData() {
+			await fetch("/history")
+				.then(res => res.json())
+				.then(res => setData(res))
+		}
+		getData()
+	}, [])
 
-	callBackendAPI() {
-		fetch("/books")
-			.then(res => res.json())
-			.then(res => this.setState({apiResponse: res}))
-			.catch(err => err)
-	};
+	const StyledTableCell = withStyles((theme) => ({
+		head: {
+			backgroundColor: theme.palette.common.black,
+			color: theme.palette.common.white,
+		},
+		body: {
+			fontSize: 14
+		},
+	})) (TableCell);
 
-	render() {
-		const StyledTableCell = withStyles((theme) => ({
-			head: {
-				backgroundColor: theme.palette.common.black,
-				color: theme.palette.common.white,
+	const StyledTableRow = withStyles((theme) => ({
+		root: {
+			'&:nth-of-type(odd)': {
+				backgroundColor: theme.palette.action.hover,
 			},
-			body: {
-				fontSize: 14
-			},
-		})) (TableCell);
+		},
+	})) (TableRow);
 
-		const StyledTableRow = withStyles((theme) => ({
-			root: {
-				'&:nth-of-type(odd)': {
-					backgroundColor: theme.palette.action.hover,
-				},
-			},
-		})) (TableRow);
-
-		const lists = this.state.apiResponse.map((item) => 
-			<StyledTableRow key={item.b_id}>
-				<StyledTableCell component="th" scope="row" align="center">{item.bname}</StyledTableCell>
-				<StyledTableCell align="center">{item.author}</StyledTableCell>
-			</StyledTableRow>
-		);
-
-		return (
-			// <p>{this.state.apiResponse}</p>
-			// <div className="App">
-			// 	<header className="App-header">
-					
-			// 	</header>
-			// </div>
-			<>
+	return (
+		<>
 			<div>
-				<input type="text" value="Hello World!"/>
+				{/* <div>
+					<TextField id="outlined-basic" label="Search Book" variant="outlined"/>
+					<Button variant="contained" onClick={() => {
+
+					}}>Search</Button>
+				</div> */}
 				<TableContainer component={Paper}>
 					<Table aria-label="Customized Table">
 						<TableHead>
 							<TableRow>
-								<TableCell align="center">First Name</TableCell>
-								<TableCell align="center">Last Name</TableCell>
+								<TableCell align="center">Book Name</TableCell>
+								<TableCell align="center">Author</TableCell>
+								<TableCell align="center">Borrowed By</TableCell>
+								<TableCell align="center">Date Borrowed</TableCell>
+								<TableCell align="center">Expected Date Return</TableCell>
+								<TableCell align="center">Edit</TableCell>
 							</TableRow>
 						</TableHead>
-						<TableBody>{lists}</TableBody>
+						<TableBody>{
+							data.map((item) =>
+								<StyledTableRow key={item.b_id}>
+									<StyledTableCell component="th" scope="row" align="center">{item.bname}</StyledTableCell>
+									<StyledTableCell align="center">{item.author}</StyledTableCell>
+									<StyledTableCell align="center">{item.fname + ' ' + item.lname}</StyledTableCell>
+									<StyledTableCell align="center">{new Date(item.dateborrowed).toLocaleDateString("en-US")}</StyledTableCell>
+									<StyledTableCell align="center">{new Date(item.datereturn).toLocaleDateString("en-US")}</StyledTableCell>
+									<StyledTableCell align="center">
+										<Link to="/BookDetail">
+											<Button variant="outlined" onClick={() => {
+												
+											}}>
+												Edit
+											</Button>
+										</Link>
+									</StyledTableCell>
+								</StyledTableRow>
+							)
+						}</TableBody>
 					</Table>
 				</TableContainer>
 			</div>
-			</>
-		);
-	}
+		</>
+	)
 }
 
 export default BookList;
