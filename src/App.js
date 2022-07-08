@@ -1,6 +1,6 @@
 import './App.css';
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar";
 import StudentList from "./pages/StudentList";
 import BookList from "./pages/BookList";
@@ -9,15 +9,15 @@ import BookDetail from "./pages/BookDetail";
 
 function App() {
 	return (
-		<Router>
+		<div>
 			<Navbar />
 			<Routes>
-				<Route path="/StudentList" component={StudentList} />
-				<Route path="/BookList" component={BookList} />
-				<Route path="/StudentDetail" component={StudentDetail} />
-				<Route path="/BookDetail" component={BookDetail} />
+				<Route path="/StudentList" element={<StudentList />} />
+				<Route path="/BookList" element={<BookList />} />
+				<Route path="/StudentDetail" element={<StudentDetail />} />
+				<Route path="/BookDetail" element={<BookDetail />} />
 			</Routes>
-		</Router>
+		</div>
 	);
 }
 
